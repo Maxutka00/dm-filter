@@ -1,2 +1,3 @@
 Pyrogram==2.0.106
 TgCrypto
+git+https://github.com/kotttee/pyrogram_patch.git
