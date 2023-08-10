@@ -143,7 +143,7 @@ class Dialog:
         await this_question.after_handler(message, app)
         if not next_state:
             text = await self.get_text_data(state, message)
-            await message.reply(text)
+            #await message.reply(text)
             await app.send_message(config.receiver_user, text)
             await state.finish()
             await enable_notifications(app, message.chat.id)
