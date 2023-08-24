@@ -12,49 +12,54 @@ copy.deepcopy(payment)
 send_messages_groups = [QuestionWithTextAnswer("What groups is about?"),
                         QuestionWithTextAnswer("What is group language?"),
                         QuestionWithTextAnswer(
-                            "The price is $50 to send messages to 1000 groups.\nHow many do you want to send?"),
+                            "The price is $50 to send messages to 1000 groups.\nHow many messages do you want to send?"),
                         copy.deepcopy(payment)]
 send_messages_users = [QuestionWithTextAnswer("What your target audience is about?"),
                        QuestionWithTextAnswer("What language?"),
-                       QuestionWithTextAnswer("The price is $50 per 1000 DMs. How many do you want to send?"),
+                       QuestionWithTextAnswer("The price is $50 per 1000 DMs. How many messages do you want to send?"),
                        copy.deepcopy(payment)]
 invite_users = [QuestionWithTextAnswer("What your target audience is about?"),
                 QuestionWithTextAnswer("What language?"),
                 QuestionWithTextAnswer("Your group/channel link?"),
                 QuestionWithTextAnswer(
-                    "The price is $50 per 1000 invited. All members will be real and active.\nHow many do you want to invite?"),
+                    "The price is $50 per 1000 invited. All members will be real and active.\nHow many members do you want to invite?"),
                 copy.deepcopy(payment)]
 market = QuestionWithMultipleAnswers("Choose type:", {"Send messages into the groups.": send_messages_groups,
                                                       "Send direct messages to user.": send_messages_users,
                                                       "Invite members/subscriber to your group/channel.": invite_users})
 
 find_list_groups = [
-    QuestionWithTextAnswer("All groups will be legit and active, choose your requirements:\nWhat groups is about?"),
+    QuestionWithTextAnswer("All groups will be legit and active, type your requirements:\n\nWhat groups is about?"),
     QuestionWithTextAnswer("Groups language?"),
     QuestionWithTextAnswer("The price is $10 per 100 groups.\nHow many groups do you want?",
-                           {funcs.less_than_100: [QuestionWithTextAnswer("link to the website and bot.")],
+                           {funcs.less_than_100: [QuestionWithTextAnswer("Free search available on Teleteg.com and @TeletegBot")],
                             funcs.bigger_than_100: [copy.deepcopy(payment)]})]
 
 find_list_channels = [
-    QuestionWithTextAnswer("All channels will be legit and active, choose your requirements:\nWhat channels is about?"),
+    QuestionWithTextAnswer("All channels will be legit and active, type your requirements:\n\nWhat channels is about?"),
     QuestionWithTextAnswer("Channels language?"),
     QuestionWithTextAnswer("The price is $10 per 100 channels.\nHow many channels do you want?",
-                           {funcs.less_than_100: [QuestionWithTextAnswer("link to the website and bot.")],
+                           {funcs.less_than_100: [QuestionWithTextAnswer("Free search available on Teleteg.com and @TeletegBot")],
                             funcs.bigger_than_100: [copy.deepcopy(payment)]})]
 
 find_list_members = [QuestionWithMultipleAnswers("Choose quantity:", {
-    "Members from one group": [QuestionWithTextAnswer("link to the website and bot.")],
-    "Members from many groups": [QuestionWithTextAnswer("Same as for admins.")]})]
+    "Members from one group": [QuestionWithTextAnswer("Free feature available on Teleteg.com")],
+    "Members from many groups": [QuestionWithTextAnswer("What groups is about?"),
+                                                           QuestionWithTextAnswer("Groups language?"),
+                                                           QuestionWithTextAnswer(
+                                                               "The price is $10 per 1000 admins.\nHow many admins do you want?",
+                                                               {funcs.less_than_1000: [QuestionWithTextAnswer("link to the website and bot.")],
+                                                                funcs.bigger_than_1000: [copy.deepcopy(payment)]})]})]
 
 find_list_admins = [
-    QuestionWithMultipleAnswers("Where?", {"From groups": [QuestionWithTextAnswer("What groups is about?"),
-                                                           QuestionWithTextAnswer("What are the groups language?"),
+    QuestionWithMultipleAnswers("From where?", {"From groups": [QuestionWithTextAnswer("What groups is about?"),
+                                                           QuestionWithTextAnswer("Groups language?"),
                                                            QuestionWithTextAnswer(
                                                                "The price is $10 per 1000 admins.\nHow many admins do you want?",
                                                                {funcs.less_than_1000: [QuestionWithTextAnswer("link to the website and bot.")],
                                                                 funcs.bigger_than_1000: [copy.deepcopy(payment)]})],
                                            "From channels": [QuestionWithTextAnswer("What channels is about?"),
-                                                             QuestionWithTextAnswer("What are the channels language?"),
+                                                             QuestionWithTextAnswer("Channels language?"),
                                                              QuestionWithTextAnswer("The price is $10 per 1000 admins.\nHow many admins do you want?",
                                                                  {funcs.less_than_1000: [QuestionWithTextAnswer("link to the website and bot.")],
                                                                   funcs.bigger_than_1000: [copy.deepcopy(payment)]})]})]
@@ -63,37 +68,37 @@ find_list = QuestionWithMultipleAnswers("What do you want to find?", {"Groups": 
                                                                       "Members": find_list_members,
                                                                       "Admins": find_list_admins})
 
-find_user_groups = [QuestionWithTextAnswer("Link to website page or a bot"),
+find_user_groups = [QuestionWithTextAnswer("Search User at Teleteg.com"),
                     QuestionWithMultipleAnswers("The price for custom research is $50", {
                         "Agree": [QuestionWithTextAnswer("Write username"), copy.deepcopy(payment)],
                         "Not agree": [EmptyQuestion()]})]
-find_user_messages = [QuestionWithTextAnswer("Link to website page"),
+find_user_messages = [QuestionWithTextAnswer("Request beta test at @Teleteg_Support"),
                       QuestionWithMultipleAnswers("Custom research price is $50+", {
                           "Agree": [QuestionWithTextAnswer("Write the username that you want to check."),
                                     copy.deepcopy(payment)],
                           "Not agree": [EmptyQuestion()]})]
-find_mentions = [QuestionWithTextAnswer("Link to website page."),
+find_mentions = [QuestionWithTextAnswer("Request beta test at @Teleteg_Support"),
                  QuestionWithMultipleAnswers("Custom research price is $50+", {
                      "Agree": [QuestionWithTextAnswer("Write the username that you want to check."),
                                copy.deepcopy(payment)],
                      "Not agree": [EmptyQuestion()]})]
 
-telegram_search = QuestionWithMultipleAnswers("What type of searching do you want?",
+telegram_search = QuestionWithMultipleAnswers("What kind of search do you need?",
                                               {"Find list of target groups/channels, members/admins.": [find_list],
                                                "Find out what groups the user in": find_user_groups,
                                                "Find messages that user wrote in Telegram groups": find_user_messages,
                                                "Find messages in groups where your keyword was mentioned.": find_mentions})
 
 advertise = [QuestionWithMultipleAnswers("Advertise on our website or in a bot?", ["Website", "Bot"]),
-             QuestionWithTextAnswer("Your website or channel link?"),
+             QuestionWithTextAnswer("Type your website or channel link?"),
              QuestionWithMultipleAnswers("What kind of placement?", ["link", "banner"]),
              QuestionWithMultipleAnswers("Prices starting from $50 a month.",
                                          {"Agree": [copy.deepcopy(payment)], "Not agree": [EmptyQuestion()]})]
-partnering = [QuestionWithTextAnswer("Your name and company name or a link to your website."),
-              QuestionWithTextAnswer("Your offer in a few words.")]
+partnering = [QuestionWithTextAnswer("Your name, company name or a link to your website."),
+              QuestionWithTextAnswer("Describe your offer in a few words.")]
 other = [QuestionWithTextAnswer("Send a short description of what you are looking for.")]
 
-main = [QuestionWithMultipleAnswers("What?", {"Market in Telegram": [market],
+main = [QuestionWithMultipleAnswers("Please choose from below:", {"Market in Telegram": [market],
                                               "Telegram Search": [telegram_search],
                                               "Advertise on our website or in a bot": advertise,
                                               "Partnering": partnering,
